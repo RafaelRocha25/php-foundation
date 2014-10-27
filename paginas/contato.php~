@@ -58,7 +58,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="submit">Enviar</label>
   <div class="col-md-4">
-    <button id="submit" name="submit" class="btn btn-success">Button</button>
+    <button id="submit" name="submit" class="btn btn-success">Enviar</button>
   </div>
 </div>
 

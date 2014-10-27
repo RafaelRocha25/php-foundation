@@ -1,3 +1,38 @@
+<?php
+	
+	$rota = parse_url("http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+	$file = str_replace("/", "", $rota['path']);	
+	
+	function rota($path, $file) {
+		
+		$arquivo = $path . $file . ".php";
+		
+		$rotas = [
+						"home"     => "paginas/home.php",
+						"empresa"  => "paginas/empresa.php",
+						"produtos" => "paginas/produtos.php",
+						"servicos" => "paginas/servicos.php",
+						"contato"  => "paginas/contato.php"
+					];
+					
+		$rotaDefault = ["padrao" => "paginas/home.php"];
+		
+		# se o file não estiver setado a rota padrão é exibida		
+		if(!$file) {
+			require_once($rotaPadrao["padrao"]);
+		}		
+		
+		# se o arquivo existir e estiver mapeado na rota		
+		if(file_exists($arquivo) && array_key_exists($file, $rotas)) {
+			require_once($arquivo);
+		} else {
+			echo "Página não encontrada. Erro: 404.";		
+		}
+	}	
+	
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,19 +82,19 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="index.php?arquivo=home">Home</a>
+                        <a href="home">Home</a>
                     </li>
                     <li>
-                        <a href="index.php?arquivo=empresa">Empresa</a>
+                        <a href="empresa">Empresa</a>
                     </li>
 		    				<li>
-                        <a href="index.php?arquivo=servicos">Serviços</a>
+                        <a href="servicos">Serviços</a>
                     </li>
 		    			  <li>
-                        <a href="index.php?arquivo=produtos">Produtos</a>
+                        <a href="produtos">Produtos</a>
                     </li>
                     <li>
-                        <a href="index.php?arquivo=contato">Contato</a>
+                        <a href="contato">Contato</a>
                     </li>
                 </ul>
             </div>
@@ -74,17 +109,8 @@
             <div class="col-lg-12">
                 
                 <?php 
-						
-						# se o parâmetro arquivo não estiver setado a página home é chamada
-						$path   = "paginas/"; 						
-						$pagina = (!isset($_GET['arquivo'])) ? $path."home.php" : $path.$_GET['arquivo'].".php";									
-						
-						# se o arquivo não existir no servidor uma mensagem de erro é exibida
-						if(file_exists($pagina)) {                	
-                		require_once($pagina); 
-                	} else {
-							echo "Página não encontrada! Erro: 404.";					                	
-                	}
+								
+						rota("paginas/", $file);	
                 	
                 ?>
             </div>

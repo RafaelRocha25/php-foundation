@@ -13,7 +13,7 @@
 	}
 ?>
 
-<form action="index.php?arquivo=contato" method="POST" class="form-horizontal">
+<form action="contato" method="POST" class="form-horizontal">
 <fieldset>
 
 <!-- Form Name -->
