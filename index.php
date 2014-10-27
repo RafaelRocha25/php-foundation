@@ -77,7 +77,7 @@
 						
 						# se o parâmetro arquivo não estiver setado a página home é chamada
 						$path   = "paginas/"; 						
-						$pagina = (!$_GET['arquivo']) ? $path."home.php" : $path.$_GET['arquivo'].".php";									
+						$pagina = (!isset($_GET['arquivo'])) ? $path."home.php" : $path.$_GET['arquivo'].".php";									
 						
 						# se o arquivo não existir no servidor uma mensagem de erro é exibida
 						if(file_exists($pagina)) {                	
