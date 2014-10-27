@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="rafael" >
 
-    <title>Logo Nav - Start Bootstrap Template</title>
+    <title>Primeiro Projeto - PHP Foundation</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -47,19 +47,19 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">Home</a>
+                        <a href="index.php?arquivo=home">Home</a>
                     </li>
                     <li>
-                        <a href="#">Empresa</a>
+                        <a href="index.php?arquivo=empresa">Empresa</a>
                     </li>
-		    <li>
-                        <a href="#">Serviços</a>
+		    				<li>
+                        <a href="index.php?arquivo=servicos">Serviços</a>
                     </li>
-		    <li>
-                        <a href="#">Produtos</a>
+		    			  <li>
+                        <a href="index.php?arquivo=produtos">Produtos</a>
                     </li>
                     <li>
-                        <a href="#">Contato</a>
+                        <a href="index.php?arquivo=contato">Contato</a>
                     </li>
                 </ul>
             </div>
