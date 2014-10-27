@@ -2,11 +2,11 @@
 	
 	$rota = parse_url("http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
 	$file = str_replace("/", "", $rota['path']);	
-	
+	echo $file;
 	function rota($path, $file) {
 		
 		$arquivo = $path . $file . ".php";
-		echo $file; die;
+		
 		$rotas = [
 						"home"     => "paginas/home.php",
 						"empresa"  => "paginas/empresa.php",
@@ -15,14 +15,15 @@
 						"contato"  => "paginas/contato.php"
 					];
 					
-		$rotaDefault = ["padrao" => "paginas/home.php"];
+		$rotaPadrao = ["padrao" => "paginas/home.php"];
 		
-		# se o file não estiver setado a rota padrão é exibida		
+		// se o file não estiver setado a rota padrão é exibida		
 		if(!$file) {
 			require_once($rotaPadrao["padrao"]);
+			return;
 		}		
 		
-		# se o arquivo existir e estiver mapeado na rota		
+	   // se o arquivo existir e estiver mapeado na rota		
 		if(file_exists($arquivo) && array_key_exists($file, $rotas)) {
 			require_once($arquivo);
 		} else {

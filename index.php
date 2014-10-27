@@ -15,14 +15,15 @@
 						"contato"  => "paginas/contato.php"
 					];
 					
-		$rotaDefault = ["padrao" => "paginas/home.php"];
+		$rotaPadrao = ["padrao" => "paginas/home.php"];
 		
-		# se o file não estiver setado a rota padrão é exibida		
+		// se o file não estiver setado a rota padrão é exibida		
 		if(!$file) {
 			require_once($rotaPadrao["padrao"]);
+			return;
 		}		
 		
-		# se o arquivo existir e estiver mapeado na rota		
+	   // se o arquivo existir e estiver mapeado na rota		
 		if(file_exists($arquivo) && array_key_exists($file, $rotas)) {
 			require_once($arquivo);
 		} else {
