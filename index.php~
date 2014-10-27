@@ -1,31 +1,44 @@
 <?php
 	
-	$rota = parse_url("http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
-	$file = str_replace("/", "", $rota['path']);	
-	echo $file;
-	function rota($path, $file) {
+	define("PATH", "http://".$_SERVER['HTTP_HOST']);
+	define("DEFAULT_PATH", "paginas");		
+	$rota = parse_url(PATH.$_SERVER['REQUEST_URI']);	
+
+	function retornaArquivo($url) {
+			$inverte  = strrev($url);
+			$barraPos = strpos($inverte, "/");
+			return strrev(substr($inverte, 0, $barraPos));
+	}
+
+	function rota($file, $rota) {	
+
+		if(substr_count($rota['path'], "/") > 1) {
+			$path    = str_replace(retornaArquivo($rota['path']), "", $rota['path']);		
+			$arquivo = DEFAULT_PATH . $path . $file . ".php";
+		} else {
+			$arquivo = DEFAULT_PATH . "/" . $file . ".php";
+		}
 		
-		$arquivo = $path . $file . ".php";
-		
-		$rotas = [
-						"home"     => "paginas/home.php",
-						"empresa"  => "paginas/empresa.php",
-						"produtos" => "paginas/produtos.php",
-						"servicos" => "paginas/servicos.php",
-						"contato"  => "paginas/contato.php"
+		# índice de rotas
+		$rotas = [	"home"      => "paginas/home.php", 
+						"empresa"   => "paginas/empresa.php", 
+						"produtos"  => "paginas/produtos.php", 
+						"servicos"  => "paginas/servicos.php",
+						"contato"   => "paginas/contato.php", 
+						"produto-1" => "paginas/produtos/produto-1.php"
 					];
 					
 		$rotaPadrao = ["padrao" => "paginas/home.php"];
-		
-		// se o file não estiver setado a rota padrão é exibida		
+
+				
 		if(!$file) {
 			require_once($rotaPadrao["padrao"]);
 			return;
 		}		
-		
-	   // se o arquivo existir e estiver mapeado na rota		
-		if(file_exists($arquivo) && array_key_exists($file, $rotas)) {
-			require_once($arquivo);
+	   
+	   		
+		if(file_exists($arquivo) && array_key_exists($file, $rotas)) {			
+			require($rotas[$file]);
 		} else {
 			echo "Página não encontrada. Erro: 404.";		
 		}
@@ -48,10 +61,10 @@
     <title>Primeiro Projeto - PHP Foundation</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo PATH ?>/css/bootstrap.min.css" rel="stylesheet" />
 
     <!-- Custom CSS -->
-    <link href="css/logo-nav.css" rel="stylesheet">
+    <link href="<?php echo PATH ?>/css/logo-nav.css" rel="stylesheet" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -83,19 +96,22 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="home">Home</a>
+                        <a href="<?php echo PATH ?>/home">Home</a>
                     </li>
                     <li>
-                        <a href="empresa">Empresa</a>
+                        <a href="<?php echo PATH ?>/empresa">Empresa</a>
                     </li>
 		    				<li>
-                        <a href="servicos">Serviços</a>
+                        <a href="<?php echo PATH ?>/servicos">Serviços</a>
                     </li>
 		    			  <li>
-                        <a href="produtos">Produtos</a>
+                        <a href="<?php echo PATH ?>/produtos">Produtos</a>
                     </li>
                     <li>
-                        <a href="contato">Contato</a>
+                        <a href="<?php echo PATH ?>/produtos/produto-1">Produto - 1</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo PATH ?>/contato">Contato</a>
                     </li>
                 </ul>
             </div>
@@ -108,11 +124,10 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                
                 <?php 
-								
-						rota("paginas/", $file);	
-                	
+                		
+						$file = retornaArquivo($rota['path']);	
+						rota($file, $rota);	
                 ?>
             </div>
         </div>
@@ -133,10 +148,10 @@
     </nav>
 
     <!-- jQuery Version 1.11.0 -->
-    <script src="js/jquery-1.11.0.js"></script>
+    <script src="<?php echo PATH ?>js/jquery-1.11.0.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="<?php echo PATH ?>js/bootstrap.min.js"></script>
 
 </body>
 

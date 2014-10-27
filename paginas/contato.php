@@ -7,13 +7,13 @@
 		echo $_POST["email"] . "<br />";
 		echo $_POST["assunto"] . "<br />";
 		echo $_POST["mensagem"] . "<br />";	
-		echo "Mensagem enviada em:" . date('d/m/Y h:i:s');
+		echo "Mensagem enviada em: " . date('d/m/Y h:i:s');
 	
 		unset($_POST);	
 	}
 ?>
 
-<form action="contato" method="POST" class="form-horizontal">
+<form action="<?php echo PATH ?>/contato" method="POST" class="form-horizontal">
 <fieldset>
 
 <!-- Form Name -->
@@ -32,7 +32,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="email">Email</label>  
   <div class="col-md-5">
-  <input id="email" name="email" placeholder="DIgite seu e-mail" class="form-control input-md" required="" type="text">
+  <input id="email" name="email" placeholder="Digite seu e-mail" class="form-control input-md" required="" type="text">
     
   </div>
 </div>
